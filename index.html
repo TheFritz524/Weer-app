@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weer App - Historische Weergegevens</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌤️ Historische Weergegevens</h1>
+            <p class="subtitle">Bekijk het weer van elke locatie in de afgelopen tijd</p>
+        </header>
+
+        <div class="search-section">
+            <div class="location-input">
+                <label for="location">Locatie:</label>
+                <input type="text" id="location" placeholder="Bijv. Amsterdam, Rotterdam, Utrecht" />
+                <button id="searchBtn" onclick="searchLocation()">Zoek Locatie</button>
+            </div>
+
+            <div class="date-inputs">
+                <div class="date-group">
+                    <label for="startDate">Startdatum:</label>
+                    <input type="date" id="startDate" />
+                </div>
+                <div class="date-group">
+                    <label for="endDate">Einddatum:</label>
+                    <input type="date" id="endDate" />
+                </div>
+                <button id="fetchBtn" onclick="fetchWeatherData()" disabled>Haal Weergegevens Op</button>
+            </div>
+        </div>
+
+        <div id="loading" class="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>Gegevens laden...</p>
+        </div>
+
+        <div id="error" class="error" style="display: none;"></div>
+
+        <div id="locationInfo" class="location-info" style="display: none;"></div>
+
+        <div id="weatherData" class="weather-data" style="display: none;">
+            <h2>Weergeschiedenis</h2>
+            <div id="weatherTable"></div>
+            <div id="weatherSummary" class="weather-summary"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
