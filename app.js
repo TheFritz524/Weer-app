@@ -84,11 +84,23 @@ function displayLocationInfo(location) {
     const locationInfoDiv = document.getElementById('locationInfo');
     const latDirection = location.latitude >= 0 ? 'N' : 'Z';
     const lonDirection = location.longitude >= 0 ? 'O' : 'W';
-    locationInfoDiv.innerHTML = `
-        <h3>📍 ${location.name}</h3>
-        <p>Land: ${location.country || 'Onbekend'}</p>
-        <p>Coördinaten: ${Math.abs(location.latitude).toFixed(4)}°${latDirection}, ${Math.abs(location.longitude).toFixed(4)}°${lonDirection}</p>
-    `;
+    
+    // Clear previous content
+    locationInfoDiv.innerHTML = '';
+    
+    // Create elements safely
+    const heading = document.createElement('h3');
+    heading.textContent = `📍 ${location.name}`;
+    
+    const countryPara = document.createElement('p');
+    countryPara.textContent = `Land: ${location.country || 'Onbekend'}`;
+    
+    const coordsPara = document.createElement('p');
+    coordsPara.textContent = `Coördinaten: ${Math.abs(location.latitude).toFixed(4)}°${latDirection}, ${Math.abs(location.longitude).toFixed(4)}°${lonDirection}`;
+    
+    locationInfoDiv.appendChild(heading);
+    locationInfoDiv.appendChild(countryPara);
+    locationInfoDiv.appendChild(coordsPara);
     locationInfoDiv.style.display = 'block';
 }
 
