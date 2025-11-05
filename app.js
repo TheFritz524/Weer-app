@@ -16,6 +16,13 @@ window.addEventListener('DOMContentLoaded', () => {
     // Set max date to today
     document.getElementById('endDate').max = endDate.toISOString().split('T')[0];
     document.getElementById('startDate').max = endDate.toISOString().split('T')[0];
+    
+    // Allow Enter key to trigger search
+    document.getElementById('location').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            searchLocation();
+        }
+    });
 });
 
 // Search for location using geocoding API
@@ -75,10 +82,12 @@ async function searchLocation() {
 // Display location information
 function displayLocationInfo(location) {
     const locationInfoDiv = document.getElementById('locationInfo');
+    const latDirection = location.latitude >= 0 ? 'N' : 'Z';
+    const lonDirection = location.longitude >= 0 ? 'O' : 'W';
     locationInfoDiv.innerHTML = `
         <h3>📍 ${location.name}</h3>
         <p>Land: ${location.country || 'Onbekend'}</p>
-        <p>Coördinaten: ${location.latitude.toFixed(4)}°N, ${location.longitude.toFixed(4)}°O</p>
+        <p>Coördinaten: ${Math.abs(location.latitude).toFixed(4)}°${latDirection}, ${Math.abs(location.longitude).toFixed(4)}°${lonDirection}</p>
     `;
     locationInfoDiv.style.display = 'block';
 }
@@ -327,12 +336,3 @@ function showError(message) {
 function hideError() {
     document.getElementById('error').style.display = 'none';
 }
-
-// Allow Enter key to trigger search
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('location').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            searchLocation();
-        }
-    });
-});
